@@ -1,0 +1,39 @@
+header{
+    display: inline-flex;
+    margin: 5px;
+}
+button{
+    border-radius: 5;
+    font-size: 14pt;
+    margin-left: 5px;
+   
+}
+
+#searchBox{
+    font-size: 14pt;
+}
+
+#list{
+    display: flex;
+}
+
+#buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+#names{
+    margin: 5px;
+}
+
+.nameList{
+    margin: 9px;
+    height: 30px;
+}
+
+.buttonList{
+    height: 30px;
+    margin: 5px;
+}
+
+
