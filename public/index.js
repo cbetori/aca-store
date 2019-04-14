@@ -1,30 +1,25 @@
 //Creates list on load
-function productList(){
+function productList(products){
+
     let containerNames = document.getElementById('names')
     let containerButtons = document.getElementById('buttons')
 
-    for(let i = 0; i<products.length; i++){
-    
+    products.map((element, index)=>{ 
+
         let li = document.createElement('li')
-        let text = document.createTextNode(products[i].name)
-        li.appendChild(text)
-        li.setAttribute('id', 'name_'+products[i].id)
+        li.setAttribute('value', element._id)
         li.setAttribute('class', 'nameList')
+        containerNames.appendChild(li)
+        li.innerHTML = element.name
 
         let button = document.createElement('button')
-        let buttonText = document.createTextNode('Add to Cart')
-        button.appendChild(buttonText)
-        button.setAttribute('id', 'button_'+products[i]._id)
-        button.setAttribute('class','buttonList')
-
-        containerNames.appendChild(li)
+        button.setAttribute('value', element._id)
+        button.setAttribute('class', 'buttonList')
         containerButtons.appendChild(button)
+        button.innerHTML = 'Add to Cart'
+    })
 
-        list.appendChild(containerNames)
-        list.appendChild(containerButtons)
-    }
-
-    document.getElementById('handleSearch').onclick = function searchBox(){ 
+    document.getElementById('handleSearch').onclick = searchBox=>{ 
         let searchValue = document.getElementById('searchBox').value
         searchProducts(searchValue)
     }
@@ -32,20 +27,19 @@ function productList(){
     let buttonClass = document.getElementsByClassName('buttonList')
     for(let i = 0;i<buttonClass.length; i++){
         buttonClass[i].onclick = function addToCart(){
-        console.log(buttonClass[i].id)
+        console.log(buttonClass[i].value)
         }
     }
 }
 
-window.onload = productList
+window.onload = ()=> productList(products)
+
 //Search
-function searchProducts(searchValue){
-    for(let i = 0; i<products.length; i++){
-        if(searchValue === products[i]['name']){
-            document.getElementById('searchResult').innerHTML = products[i]['name']
-            return
-        }
-    }
+const searchProducts = (searchValue) =>{
+    let filterredProducts = products.filter((p)=>{
+        return p.name === searchValue
+    })
+    productList(filterredProducts)
 }
 
 //Shopping Cart
