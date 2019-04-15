@@ -9,24 +9,23 @@ button {
     margin-left: 5px;
 }
 
+#searchBox {
+    font-size: 14pt;
+}
 
 #listAll{
     display: inline;
-    
 }
 
 .list {
     display: flex;
-    margin: 10px;
-
+    
 }
 
 .buttons {
-
-}
-.listItems{
-    margin-left: 20px;
-    min-width: 500px;
+    display: flex;
+    flex-direction: column;
+    max-width: 150px;
 }
 
 .names {
