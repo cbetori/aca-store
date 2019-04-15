@@ -13,16 +13,21 @@
     <header>
         <input id='searchBox' type='input' placeholder='search'/>
         <button id='handleSearch'>Search</button>
-        <button>Shopping Cart</button>
+        <button id='shoppingCartBtn'>Shopping Cart</button>
     </header>
-    <ul id='shoppingCart'>
-        <div id='cartNames'/>
-        <div id='cartButtons'/>
-    </ul>
+
     <div id='searchResult'/>
-    <ul id='list'>
-        <div id='names'></div>
-        <div id='buttons'></div>
+
+    <ul id='shoppingCart' class="list hide">
+        <div id='namesCart' class="names"></div>
+        <div id='buttonsCart' class='buttons'></div>
+    </ul>
+
+    <div id='searchResult'/>
+
+    <ul id='listAll' class="list">
+        <div id='namesList' class="names"></div>
+        <div id='buttonsList' class='buttons'></div>
     </ul>
 </body>
 </html>
