@@ -21,10 +21,10 @@ let divCreator = (element) => {
         </button>
     </div>
     <div id=dropdownClick_${element._id} class='description hide'>
-    Description - ${element.description} <br>
-    Rating - ${element.rating} <br>
-    Price - ${element.price} <br>
-    Category - ${element.catergory} <br>
+    - Description - ${element.description} <br>
+    - Rating - ${element.rating} <br>
+    - Price - ${element.price} <br>
+    - Category - ${element.catergory} <br>
     </div>`
   listArray.push(li);
 };
@@ -41,9 +41,15 @@ let listArrayGenerator = (location, elementID) => {
 
 //This returns product id
 let handleAddToCart = id => {
-  document.getElementById("button_"+id).innerHTML = 'Remove'
-  document.getElementById("shoppingCart").appendChild(document.getElementById("list" + id));
-  document.getElementById("shoppingCart").appendChild(document.getElementById("dropdownClick_" + id));
+  if(document.getElementById('button_'+id).innerText === 'Add to Cart'){
+    document.getElementById("button_"+id).innerHTML = 'Remove'
+    document.getElementById("shoppingCart").appendChild(document.getElementById("list" + id));
+    document.getElementById("shoppingCart").appendChild(document.getElementById("dropdownClick_" + id));
+  }else{
+    document.getElementById("button_"+id).innerHTML = 'Add to Cart'
+    document.getElementById("listAll").appendChild(document.getElementById("list" + id));
+    document.getElementById("listAll").appendChild(document.getElementById("dropdownClick_" + id));
+  }
 };
 
 //Search
@@ -51,7 +57,8 @@ const searchProducts = searchValue => {
   let filteredProducts = products.filter(p => {
     return p.name === searchValue;
   });
-  productList(filteredProducts, list);
+  listArray = ["Search Results"]
+  listArrayGenerator('searchResult',filteredProducts[0]._id)
 };
 
 const setSearch=()=>{
@@ -68,7 +75,6 @@ const toggleCartView = cartView => {
   } else {
     cartView.className = "hide";
   }
-  console.log(cartView.className)
 };
 
 const setCart=()=>{
@@ -81,7 +87,6 @@ const setCart=()=>{
 
 const handleDropDown= elementID =>{
      let dropdown = document.getElementById('dropdownClick_'+elementID)
-     console.log(dropdown)
      if (dropdown.className === "description hide") {
       dropdown.className = "description show";
     } else {

@@ -51,6 +51,7 @@ li{
 
 .description{
     display: inline-flex;
+    margin-left: 100px;
 }
 
 .hide {
