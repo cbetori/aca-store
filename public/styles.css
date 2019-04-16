@@ -9,22 +9,22 @@ button {
     margin-left: 5px;
 }
 
-
-#listAll{
+#listAll {
     display: inline;
-    
+}
+
+#shoppingCart {
+    display: inline;
 }
 
 .list {
     display: flex;
     margin: 10px;
-
 }
 
-.buttons {
+.buttons {}
 
-}
-.listItems{
+.listItems {
     margin-left: 20px;
     min-width: 500px;
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,21 +8,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
-        <input id='searchBox' type='input' placeholder='search'/>
+        <input id='searchBox' type='input' placeholder='search' />
         <button id='handleSearch'>Search</button>
         <button id='shoppingCartBtn'>Shopping Cart</button>
     </header>
 
-    <div id='searchResult'/>
+    <div id='searchResult' />
 
-    <ul id='shoppingCart' class="list ide" onclick="toggleCartView()"></ul>
-
-    <div id='searchResult'/>
+    <ul id='shoppingCart' class="list ide" onclick="toggleCartView()">
+        <div>Cart</div>
+    </ul>
 
     <ul id='listAll' class="list"></ul>
 </body>
 <script src="products.js"></script>
 <script src="index.js"></script>
+
 </html>

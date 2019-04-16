@@ -1,50 +1,48 @@
 //Creates list on load
-let cartArray = []
-let listArray = []
-let buttonText = "Add to Cart"
+let cartArray = [];
+let listArray = [];
+let buttonText = "Add to Cart";
 
-let divCreator =(element)=>{
-  let li = `<div clas=container value=${element._id} class=list>
-              <li
-                class=listItems 
-                value=${element._id}>
-                ${element.name}
-              </li>`+
-              `<button
-                id=button_${element._id}
-                value=${element._id} 
-                class=buttons
-                onclick=handleAddToCart(id)>
-                ${buttonText}
-              </button>
-            </div>`
-            listArray.push(li)
-            console.log("test")
-}
+let divCreator = (element) => {
+  let li =
+    `<div id=list${element._id} value=${element._id} class=list>
+        <li
+        class=listItems 
+        value=${element._id}>
+        ${element.name}
+        </li>` +
+    `<button
+        id=button_${element._id}
+        value=${element._id} 
+        class=buttons
+        onclick=handleAddToCart(value)>
+        ${buttonText}
+        </button>
+    </div>`;
+  listArray.push(li);
+};
 
-let listArrayGenerator =((location, elementID)=>{
+let listArrayGenerator = (location, elementID) => {
   location = document.getElementById(location);
-  products.map((element)=>{
-    console.log(elementID)
-    if(elementID === element._id || elementID === undefined)
-    divCreator(element)
-  })
-  listArray = listArray.join('')
-  location.innerHTML = listArray
-})
+  products.map(element => {
+    if (elementID === element._id || elementID === undefined)
+      divCreator(element);
+  });
+  listArray = listArray.join("");
+  location.innerHTML = listArray;
+};
 
-let handleAddToCart =((id)=>{
-  let elementID = document.getElementById(id)
-  listArrayGenerator('shoppingCart', elementID)
-})
+//This returns product id
+let handleAddToCart = id => {
+  console.log(id)
+  let elementID = document.getElementById("shoppingCart").appendChild(document.getElementById("list" + id));
+  console.log(id)
+  // cartArray.push(elementID);
+  // listArrayGenerator("shoppingCart", elementID, array);
+};
 
-window.onload = listArrayGenerator('listAll')
+window.onload = listArrayGenerator("listAll");
 //console.log("list- "+listArray,'\n' ,"cart- "+cartArray)
-
-
-
-
-
 
 // function productList(products, list) {
 //   let containerNames = document.getElementById("names" + list);
