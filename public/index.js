@@ -6,19 +6,26 @@ let buttonText = "Add to Cart";
 let divCreator = (element) => {
   let li =
     `<div id=list${element._id} value=${element._id} class=list>
+    <button id=dropdown_${element._id} class='buttons dropdowns' onclick=handleDropDown(${element._id})>&#9660</button>
         <li
         class=listItems 
         value=${element._id}>
         ${element.name}
-        </li>` +
-    `<button
+        </li> 
+    <button
         id=button_${element._id}
         value=${element._id} 
         class=buttons
         onclick=handleAddToCart(value)>
         ${buttonText}
         </button>
-    </div>`;
+    </div>
+    <div id=dropdownClick_${element._id} class='description hide'>
+    Description - ${element.description} <br>
+    Rating - ${element.rating} <br>
+    Price - ${element.price} <br>
+    Category - ${element.catergory} <br>
+    </div>`
   listArray.push(li);
 };
 
@@ -30,18 +37,68 @@ let listArrayGenerator = (location, elementID) => {
   });
   listArray = listArray.join("");
   location.innerHTML = listArray;
-};
+}; 
 
 //This returns product id
 let handleAddToCart = id => {
-  console.log(id)
-  let elementID = document.getElementById("shoppingCart").appendChild(document.getElementById("list" + id));
-  console.log(id)
-  // cartArray.push(elementID);
-  // listArrayGenerator("shoppingCart", elementID, array);
+  document.getElementById("button_"+id).innerHTML = 'Remove'
+  document.getElementById("shoppingCart").appendChild(document.getElementById("list" + id));
+  document.getElementById("shoppingCart").appendChild(document.getElementById("dropdownClick_" + id));
 };
 
+//Search
+const searchProducts = searchValue => {
+  let filteredProducts = products.filter(p => {
+    return p.name === searchValue;
+  });
+  productList(filteredProducts, list);
+};
+
+const setSearch=()=>{
+  document.getElementById("handleSearch").onclick = searchBox => {
+    let searchValue = document.getElementById("searchBox").value;
+    searchProducts(searchValue);
+  };
+}
+
+//Shopping Cart
+const toggleCartView = cartView => {
+  if (cartView.className === "hide") {
+    cartView.className = "show";
+  } else {
+    cartView.className = "hide";
+  }
+  console.log(cartView.className)
+};
+
+const setCart=()=>{
+  let shoppingCartBtn = document.getElementById("shoppingCartBtn");
+  let cartView = document.getElementById("cart");
+  shoppingCartBtn.onclick = () => {
+    toggleCartView(cartView);
+  };
+}
+
+const handleDropDown= elementID =>{
+     let dropdown = document.getElementById('dropdownClick_'+elementID)
+     console.log(dropdown)
+     if (dropdown.className === "description hide") {
+      dropdown.className = "description show";
+    } else {
+      dropdown.className = "description hide";
+    }
+    
+}
+
+// const fillDrowpDown=()=>{
+//   console.log(elementID)
+// }
+
 window.onload = listArrayGenerator("listAll");
+window.onload = setSearch();
+window.onload = setCart();
+
+
 //console.log("list- "+listArray,'\n' ,"cart- "+cartArray)
 
 // function productList(products, list) {
@@ -66,10 +123,7 @@ window.onload = listArrayGenerator("listAll");
 //     }
 //   });
 
-//   document.getElementById("handleSearch").onclick = searchBox => {
-//     let searchValue = document.getElementById("searchBox").value;
-//     searchProducts(searchValue);
-//   };
+
 
 //   let buttonClass = document.getElementsByClassName("buttonList");
 //   for (let i = 0; i < buttonClass.length; i++) {
@@ -84,31 +138,13 @@ window.onload = listArrayGenerator("listAll");
 //     };
 //   }
 
-//   let shoppingCartBtn = document.getElementById("shoppingCartBtn");
-//   let cartView = document.getElementById("shoppingCart");
-//   shoppingCartBtn.onclick = () => {
-//     toggleCartView(cartView);
-//   };
-// }
+
 
 // window.onload = () => productList(products, list);
 
-// //Search
-// const searchProducts = searchValue => {
-//   let filteredProducts = products.filter(p => {
-//     return p.name === searchValue;
-//   });
-//   productList(filteredProducts, list);
-// };
 
-// //Shopping Cart
-const toggleCartView = cartView => {
-  if (cartView.className === "list hide") {
-    cartView.className = "list show";
-  } else {
-    cartView.className = "list hide";
-  }
-};
+
+
 
 // let cartArray = [];
 // const addToCart = value => {

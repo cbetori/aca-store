@@ -9,6 +9,10 @@ button {
     margin-left: 5px;
 }
 
+li{
+    list-style-type: none;
+}
+
 #listAll {
     display: inline;
 }
@@ -22,7 +26,9 @@ button {
     margin: 10px;
 }
 
-.buttons {}
+.dropdowns{
+    font-size: 2pt;
+}
 
 .listItems {
     margin-left: 20px;
@@ -41,6 +47,10 @@ button {
 .buttonList {
     height: 30px;
     margin: 5px;
+}
+
+.description{
+    display: inline-flex;
 }
 
 .hide {
