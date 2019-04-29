@@ -1,59 +1,31 @@
-header {
-    display: inline-flex;
-    margin: 5px;
+body{
+    margin: 0px;
 }
 
-button {
-    border-radius: 5;
+header{
+    background-color: #2b3b4c;
+    padding: 10px;
+    height: 50px;
+}
+
+.headerBTNS{
     font-size: 14pt;
-    margin-left: 5px;
+    margin: 5px;
+    border-radius: 5px;
 }
 
-li{
-    list-style-type: none;
-}
+#list{
 
-#listAll {
-    display: inline;
 }
-
-#shoppingCart {
-    display: inline;
-}
-
-.list {
+.list{
     display: flex;
     margin: 10px;
 }
 
-.dropdowns{
-    font-size: 2pt;
+.listName{
+    width: 500px;
 }
 
-.listItems {
-    margin-left: 20px;
-    min-width: 500px;
-}
-
-.names {
-    margin: 5px;
-}
-
-.nameList {
-    margin: 9px;
-    height: 30px;
-}
-
-.buttonList {
-    height: 30px;
-    margin: 5px;
-}
-
-.description{
-    display: inline-flex;
-    margin-left: 100px;
-}
-
-.hide {
-    display: none;
+.listBTN{
+ 
 }

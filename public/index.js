@@ -1,171 +1,106 @@
-//Creates list on load
-let cartArray = [];
-let listArray = [];
-let buttonText = "Add to Cart";
-
-let divCreator = (element) => {
-  let li =
-    `<div id=list${element._id} value=${element._id} class=list>
-    <button id=dropdown_${element._id} class='buttons dropdowns' onclick=handleDropDown(${element._id})>&#9660</button>
-        <li
-        class=listItems 
-        value=${element._id}>
-        ${element.name}
-        </li> 
-    <button
-        id=button_${element._id}
-        value=${element._id} 
-        class=buttons
-        onclick=handleAddToCart(value)>
-        ${buttonText}
-        </button>
-    </div>
-    <div id=dropdownClick_${element._id} class='description hide'>
-    - Description - ${element.description} <br>
-    - Rating - ${element.rating} <br>
-    - Price - ${element.price} <br>
-    - Category - ${element.catergory} <br>
-    </div>`
-  listArray.push(li);
-};
-
-let listArrayGenerator = (location, elementID) => {
-  location = document.getElementById(location);
-  products.map(element => {
-    if (elementID === element._id || elementID === undefined)
-      divCreator(element);
-  });
-  listArray = listArray.join("");
-  location.innerHTML = listArray;
-}; 
-
-//This returns product id
-let handleAddToCart = id => {
-  if(document.getElementById('button_'+id).innerText === 'Add to Cart'){
-    document.getElementById("button_"+id).innerHTML = 'Remove'
-    document.getElementById("shoppingCart").appendChild(document.getElementById("list" + id));
-    document.getElementById("shoppingCart").appendChild(document.getElementById("dropdownClick_" + id));
-  }else{
-    document.getElementById("button_"+id).innerHTML = 'Add to Cart'
-    document.getElementById("listAll").appendChild(document.getElementById("list" + id));
-    document.getElementById("listAll").appendChild(document.getElementById("dropdownClick_" + id));
-  }
-};
-
-//Search
-const searchProducts = searchValue => {
-  let filteredProducts = products.filter(p => {
-    return p.name === searchValue;
-  });
-  listArray = ["Search Results"]
-  listArrayGenerator('searchResult',filteredProducts[0]._id)
-};
-
-const setSearch=()=>{
-  document.getElementById("handleSearch").onclick = searchBox => {
-    let searchValue = document.getElementById("searchBox").value;
-    searchProducts(searchValue);
-  };
+'use strict'
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let filter =( value, key) =>products.filter((element)=>{return element.name === value})
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let createDIV = (array) =>{
+    let divInsert = []
+    let container
+    array.map((element)=>{
+        let li =    `<div id=list${element._id}
+                    value=${element._id}
+                    class=list>
+                    ${productNamesDIV(element)}
+                    ${addToCartDIV(element)}
+                    </div>`
+        divInsert.push(li)
+        container = divInsert.join('')
+    })
+    return container
 }
 
-//Shopping Cart
-const toggleCartView = cartView => {
-  if (cartView.className === "hide") {
-    cartView.className = "show";
-  } else {
-    cartView.className = "hide";
-  }
-};
-
-const setCart=()=>{
-  let shoppingCartBtn = document.getElementById("shoppingCartBtn");
-  let cartView = document.getElementById("cart");
-  shoppingCartBtn.onclick = () => {
-    toggleCartView(cartView);
-  };
+let productNamesDIV =(element)=>{
+    let li =  `<li class=listName>${element.name}</li>`
+    return li
 }
 
-const handleDropDown= elementID =>{
-     let dropdown = document.getElementById('dropdownClick_'+elementID)
-     if (dropdown.className === "description hide") {
-      dropdown.className = "description show";
-    } else {
-      dropdown.className = "description hide";
+let addToCartDIV =(element)=>{
+    let li = `<button id=list${element._id} value=${element._id} class=listBTN onclick=cartClick(value)>Add to Cart</button>`
+    return li
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let insertDOM = () =>{
+    getElements()
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let createList = (array) =>{
+    let list = array.map((element)=>{return element})
+    let divInsert = createDIV(list)
+    // let cartInsert = addToCartDIV(list)
+    // cartInsert = cartInsert.join('')
+    //divInsert = divInsert.join('')
+    getElements().innerHTML = divInsert
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let getElements =()=>{
+    let allListElement = document.getElementById('listAll')
+    return allListElement
+}
+let cartListElement = document.getElementById('shoppingCart')
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let loadCart =()=>{return stringOfNumbersToArray(sessionStorage.getItem('id'))}
+
+let clearCart=()=>{return sessionStorage.clear()}
+
+let cartClick =(value)=>{
+    let cart = loadCart()
+    cart.push(parseFloat(value))
+    cart = [...new Set(cart) ]
+    console.log(cart)
+    sessionStorage.setItem('id',cart)
+    return
+}
+
+let stringOfNumbersToArray=(string)=>{
+    if(string != null){
+    let array = string.split(",").map((value)=>{
+        return parseInt(value, 10)
+     })
+    return array
     }
-    
+    return []
 }
 
-// const fillDrowpDown=()=>{
-//   console.log(elementID)
-// }
+let getCartItems=()=>{
+    let cart = stringOfNumbersToArray(sessionStorage.getItem('id'))
+    let cartItems = [] 
+    cart.map((id)=>{
+        products.filter((element)=>{
+            if(element._id === id){
+                cartItems.push(element)
+            }
+        })
+    })
+    return cartItems
+}
 
-window.onload = listArrayGenerator("listAll");
-window.onload = setSearch();
-window.onload = setCart();
+let viewCart=()=>{
+    let cartItems = getCartItems()
+    console.log(cartItems)
 
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let handleSearchValue=()=>{
+    let value = document.getElementById('searchBox').value
+    return value
+}
 
-//console.log("list- "+listArray,'\n' ,"cart- "+cartArray)
+let searchList=()=>{
+    let searchValue = handleSearchValue()
+    let getSearchedValue =(searchValue)=>products.filter((element)=>{return element.name === searchValue})
+    getSearchedValue = getSearchedValue(searchValue)
+    createList(getSearchedValue)
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+createList(products)
+loadCart()
 
-// function productList(products, list) {
-//   let containerNames = document.getElementById("names" + list);
-//   let containerButtons = document.getElementById("buttons" + list);
-
-//   products.map((element, index) => {
-//     let li = document.createElement("li");
-//     li.setAttribute("id", list + element._id);
-//     li.setAttribute("class", "nameList");
-//     containerNames.appendChild(li);
-//     li.innerHTML = element.name;
-
-//     let button = document.createElement("button");
-//     button.setAttribute("value", element._id);
-//     containerButtons.appendChild(button);
-//     button.setAttribute("class", "buttonList");
-//     if (list === "List") {
-//       button.innerHTML = "Add to Cart";
-//     } else {
-//       button.innerHTML = "Remove";
-//     }
-//   });
-
-
-
-//   let buttonClass = document.getElementsByClassName("buttonList");
-//   for (let i = 0; i < buttonClass.length; i++) {
-//     buttonClass[i].onclick = function handleCart() {
-//       if (buttonClass[i].innerHTML === "Add to Cart") {
-//         addToCart(parseInt(buttonClass[i].value));
-//       } else {
-//         console.log(document.getElementById("shoppingCart"));
-//         buttonClass[i].innerHTML = "";
-//         document.getElementById("Cart" + (i + 1)).innerHTML = "";
-//       }
-//     };
-//   }
-
-
-
-// window.onload = () => productList(products, list);
-
-
-
-
-
-// let cartArray = [];
-// const addToCart = value => {
-//   products.map((element, index) => {
-//     if (value === element._id) {
-//       cartArray.push(element);
-//     }
-//   });
-//   removeProducts("Cart");
-//   productList(cartArray, "Cart");
-// };
-
-// //remove products
-// const removeProducts = list => {
-//   let containerNames = document.getElementById("names" + list);
-//   let containerButtons = document.getElementById("buttons" + list);
-//   containerNames.innerHTML = "";
-//   containerButtons.innerHTML = "";
-// };

@@ -1,0 +1,66 @@
+html{
+    font-family: Arial, Helvetica, sans-serif
+}
+
+header {
+    display: inline-flex;
+    margin: 5px;
+}
+
+button {
+    border-radius: 5;
+    font-size: 14pt;
+    margin-left: 5px;
+}
+
+li{
+    list-style-type: none;
+    font-size: 14pt;
+}
+
+#listAll {
+    display: inline;
+}
+
+#shoppingCart {
+    display: inline;
+}
+
+.list {
+    display: flex;
+    margin: 10px;
+}
+
+.dropdowns{
+    font-size: 2pt;
+}
+
+.listItems {
+    margin-left: 20px;
+    min-width: 500px;
+}
+
+.names {
+    margin: 5px;
+}
+
+.nameList {
+    margin: 5px;
+    height: 30px;
+}
+
+.buttonList {
+    height: 30px;
+    margin: 5px;
+}
+
+.description{
+    display: inline-flex;
+    font-size: 12pt;
+    margin-bottom: 15px;
+    margin-left: 100px;
+}
+
+.hide {
+    display: none;
+}

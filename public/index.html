@@ -11,12 +11,14 @@
 
 <body>
     <header>
-        <input id='searchBox' type='input' placeholder='search' />
-        <button id='handleSearch'>Search</button>
-        <button id='shoppingCartBtn'>Shopping Cart</button>
+        <input id='searchBox' class='headerBTNS' type='input' placeholder='search' />
+        <button id='searchValue' class='headerBTNS' onclick='searchList()'>Search</button>
+        <button id='shoppingCartBtn' class='headerBTNS' onclick="viewCart()">Shopping Cart</button>
+        <button id='clearCartBtn' class='headerBTNS' onclick="clearCart()">Clear Cart</button>
     </header>
 
-    <div id="search" class=''>
+    <div id="search" class='hide'>
+        Search Results
         <div id='searchResult'></div>
     </div>
 
@@ -26,7 +28,7 @@
         </ul>
     </div>
 
-    <ul id='listAll' class="list"></ul>
+    <ul id='listAll'></ul>
 </body>
 <script src="products.js"></script>
 <script src="index.js"></script>
