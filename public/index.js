@@ -1,7 +1,16 @@
 'use strict'
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 let filter =( value, key) =>products.filter((element)=>{return element.name === value})
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+let createList = (array, listView) =>{
+    let getElements = document.getElementById('listAll')
+    let list = array.map((element)=>{return element})
+    let divInsert = createDIV(list)
+    divInsert = divInsert === undefined ? `<li class=list>No Results Found</li>`:divInsert
+    listView = `<h1>${listView}</h1>`
+    getElements.innerHTML = listView+divInsert
+}
+
 let createDIV = (array) =>{
     let divInsert = []
     let container
@@ -19,7 +28,7 @@ let createDIV = (array) =>{
 }
 
 let productNamesDIV =(element)=>{
-    let li =  `<li class=listName>${element.name}</li>`
+    let li =  `<li onclick=handleItemClick(${element._id}) class=listName>${element.name}</li>`
     return li
 }
 
@@ -27,28 +36,17 @@ let addToCartDIV =(element)=>{
     let li = `<button id=list${element._id} value=${element._id} class=listBTN onclick=cartClick(value)>Add to Cart</button>`
     return li
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let insertDOM = () =>{
-    getElements()
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let createList = (array) =>{
-    let list = array.map((element)=>{return element})
-    let divInsert = createDIV(list)
-    // let cartInsert = addToCartDIV(list)
-    // cartInsert = cartInsert.join('')
-    //divInsert = divInsert.join('')
-    getElements().innerHTML = divInsert
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let getElements =()=>{
-    let allListElement = document.getElementById('listAll')
-    return allListElement
-}
-let cartListElement = document.getElementById('shoppingCart')
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let loadCart =()=>{return stringOfNumbersToArray(sessionStorage.getItem('id'))}
 
+let handleViewAll=()=>{createList(products, "All Products")}
+
+////////////////////////////////////////////////////////////////////////////////
+let handleItemClick=(id)=>{console.log(id)}
+
+////////////////////////////////////////////////////////////////////////////////
+//Handle Cart
+
+//These hanlde session storage
+let loadCart =()=>{return stringOfNumbersToArray(sessionStorage.getItem('id'))}
 let clearCart=()=>{return sessionStorage.clear()}
 
 let cartClick =(value)=>{
@@ -60,6 +58,7 @@ let cartClick =(value)=>{
     return
 }
 
+//Retrieving from session storage returns string rather than intger.
 let stringOfNumbersToArray=(string)=>{
     if(string != null){
     let array = string.split(",").map((value)=>{
@@ -85,10 +84,13 @@ let getCartItems=()=>{
 
 let viewCart=()=>{
     let cartItems = getCartItems()
+    cartItems = cartItems.length === 0 ? []:cartItems
+    createList(cartItems, "Cart")
     console.log(cartItems)
-
+    return cartItems
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//Handle Search
 let handleSearchValue=()=>{
     let value = document.getElementById('searchBox').value
     return value
@@ -98,9 +100,16 @@ let searchList=()=>{
     let searchValue = handleSearchValue()
     let getSearchedValue =(searchValue)=>products.filter((element)=>{return element.name === searchValue})
     getSearchedValue = getSearchedValue(searchValue)
-    createList(getSearchedValue)
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-createList(products)
+    createList(getSearchedValue, 'Search Results')
+} 
+
+
+////////////////////////////////////////////////////////////////////////////////
+//Handle Login
+let handleLogin=()=>{console.log("This cant sign anyone in yet...")}
+
+//On Load Functions
+handleViewAll(products, "All Products")
+//Used to get cart from session memeory
 loadCart()
 

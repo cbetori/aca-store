@@ -13,20 +13,13 @@
     <header>
         <input id='searchBox' class='headerBTNS' type='input' placeholder='search' />
         <button id='searchValue' class='headerBTNS' onclick='searchList()'>Search</button>
-        <button id='shoppingCartBtn' class='headerBTNS' onclick="viewCart()">Shopping Cart</button>
+        <button id='viewAll' class='headerBTNS' onclick='handleViewAll()'>View All</button>
         <button id='clearCartBtn' class='headerBTNS' onclick="clearCart()">Clear Cart</button>
+        <div id='headRight'> 
+            <button id='shoppingCartBtn' class='headerBTNS' onclick="viewCart()">Shopping Cart</button>
+            <button id='login' class='headerBTNS' onclick="handleLogin()">Login</button>
+        </div>
     </header>
-
-    <div id="search" class='hide'>
-        Search Results
-        <div id='searchResult'></div>
-    </div>
-
-    <div id='cart' class="hide">
-        <ul id='shoppingCart'>
-            <div>Cart</div>
-        </ul>
-    </div>
 
     <ul id='listAll'></ul>
 </body>
