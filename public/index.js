@@ -6,6 +6,7 @@ let createList = (array, listView) =>{
     let getElements = document.getElementById('listAll')
     let list = array.map((element)=>{return element})
     let divInsert = createDIV(list)
+    //Handle any time no results turn up
     divInsert = divInsert === undefined ? `<li class=list>No Results Found</li>`:divInsert
     listView = `<h1>${listView}</h1>`
     getElements.innerHTML = listView+divInsert
@@ -19,6 +20,7 @@ let createDIV = (array) =>{
                     value=${element._id}
                     class=list>
                     ${productNamesDIV(element)}
+                    ${viewDetailsDIV(element)}
                     ${addToCartDIV(element)}
                     </div>`
         divInsert.push(li)
@@ -32,8 +34,13 @@ let productNamesDIV =(element)=>{
     return li
 }
 
+let viewDetailsDIV =(element)=>{
+    let detailsBTN = `<button value=${element._id} class=listBTN onclick=handleItemClick(${element._id})>View Details</button>`
+    return detailsBTN  
+}
+
 let addToCartDIV =(element)=>{
-    let li = `<button id=list${element._id} value=${element._id} class=listBTN onclick=cartClick(value)>Add to Cart</button>`
+    let li = `<button value=${element._id} class=listBTN onclick=cartClick(value)>Add to Cart</button>`
     return li
 }
 
